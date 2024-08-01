@@ -29,7 +29,8 @@ CLIQUE_MENU = 'clique-menu.wav'
 pygame.init()
 
 # ----- Toca e define a músicaS
-
+musica_fundo = pygame.mixer.Sound('Main/assets/matue.mp3')
+musica_fundo.set_volume(0.02)
 explosao = pygame.mixer.Sound("Main/assets/explosao.mp3")
 explosao.set_volume(0.1)
 
@@ -79,24 +80,30 @@ def draw_text(text, font, color, surface, x, y):
     surface.blit(textobj, textrect)
 
 # ----- Carrega e muda o tamanho das imagens
-boneco_img = pygame.image.load('Main/assets/hulk verde.png').convert_alpha()
-boneco_img = pygame.transform.scale(boneco_img, (BONECO_WIDTH, 45))
-boneco1_img = pygame.image.load('Main/assets/hulk.png').convert_alpha()
-boneco1_img = pygame.transform.scale(boneco1_img, (BONECO_WIDTH, BONECO_HEIGHT))
+cima_perso = pygame.image.load('Main/assets/cima.png').convert_alpha()
+cima_perso = pygame.transform.scale(cima_perso, (BONECO_WIDTH, BONECO_HEIGHT))
+baixo_perso = pygame.image.load('Main/assets/baixo.png').convert_alpha()
+baixo_perso = pygame.transform.scale(baixo_perso, (BONECO_WIDTH, BONECO_HEIGHT))
+direita_perso = pygame.image.load('Main/assets/direita.png').convert_alpha()
+direita_perso = pygame.transform.scale(direita_perso, (BONECO_WIDTH, BONECO_HEIGHT))
+esquerda_perso = pygame.image.load('Main/assets/esquerda.png').convert_alpha()
+esquerda_perso = pygame.transform.scale(esquerda_perso, (BONECO_WIDTH, BONECO_HEIGHT))
+
 brick_img = pygame.image.load('Main/assets/bricks.png').convert_alpha()
 brick_img = pygame.transform.scale(brick_img, (BRICK_WIDTH, BRICK_HEIGHT)) 
+
 wood_img = pygame.image.load('Main/assets/wood.png').convert_alpha()
 wood_img = pygame.transform.scale(wood_img, (WOOD_WIDTH, WOOD_HEIGHT))
+
 bomb_img=pygame.image.load('Main/assets/bomb.png').convert_alpha()
 bomb_img = pygame.transform.scale(bomb_img, (BOMB_WIDTH, BOMB_HEIGHT))
-bonecobig_img = pygame.image.load('Main/assets/hulk verde.png').convert_alpha()
-bonecobig_img = pygame.transform.scale(bonecobig_img, (300, 300))
-boneco1big_img = pygame.image.load('Main/assets/hulk.png').convert_alpha()
-boneco1big_img = pygame.transform.scale(boneco1big_img, (300, 300))
+
 sand_img = pygame.image.load('Main/assets/sand.png').convert_alpha()
 sand_img = pygame.transform.scale(sand_img, (750, 650))
+
 bg_img = pygame.image.load('Main/assets/bg.jpeg').convert_alpha()
 bg_img = pygame.transform.scale(bg_img, (750, 650))
+
 exp1_img=pygame.image.load('Main/assets/exp1.png').convert_alpha()
 exp1_img = pygame.transform.scale(exp1_img, (EXP_WIDTH, EXP_HEIGHT))
 exp2_img=pygame.image.load('Main/assets/exp2.png').convert_alpha()
@@ -446,12 +453,12 @@ def game():
             if item == 5 :
 
                 LAYOUT[l][c] =0 
-                player1 = Player1(boneco_img, all_sprites, all_bombs,c,l,imagem)
+                player1 = Player1(cima_perso, all_sprites, all_bombs,c,l,imagem)
                 
             
             if item == 6:
                 LAYOUT[l][c] =0
-                player2 = Player2(boneco1_img,all_sprites, all_bombs,c,l,imagem)
+                player2 = Player2(cima_perso,all_sprites, all_bombs,c,l,imagem)
                 
     # adicionando aos grupos de sprites
     all_sprites.add(player1)
@@ -468,7 +475,7 @@ def game():
     # ===== Loop principal =====
     while game:
         clock.tick(FPS)
-
+        musica_fundo.play()
         # ----- Trata eventos
         for event in pygame.event.get():
             # ----- Verifica consequências
